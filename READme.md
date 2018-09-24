@@ -1,5 +1,4 @@
 ## Project Report1 - Direct Solver and Iterative Solver for discrete Poisson Equation
-Please see license.txt for licensing information
 
 ### File Description
 #### Direct Solver
@@ -33,3 +32,6 @@ Please see license.txt for licensing information
 * ./iter/cg test_matrices/b64 8 % only B vector
 * ./iter/cg test_matrices/b256 16
 *./iter/cg test_matrices/b1024 32
+
+### Licence
+Please see license.txt for licensing information
