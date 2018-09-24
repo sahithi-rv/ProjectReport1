@@ -20,7 +20,7 @@
 #define inp2(x,y) cin >> x >> y;
 #define MAX(a,b) a>b?a:b
 #define MIN(a,b) a<b?a:b
-#define N 1000
+#define N 1100
 
 using namespace std;
 using namespace std::chrono;
