@@ -27,44 +27,24 @@ using namespace std::chrono;
 double A[N][N],  b[N];
 int n; string fa, fb; 
 void get_matrixA(string fileA){
-	ifstream myfile;
-	string line;
-	myfile.open(fileA);
-	int i,j = 0;
-	if (myfile.is_open())
- 	{
-    	while ( getline (myfile,line) )
-    	{
-      		A[i][j] = stod(line);      		
-      		//cout << A[i][j] << " ";
-      		j++;
-      		if(j==n){
-      			i++;
-      			j=0;
-      		//	cout << endl;
-      		}
-      		
-    	}
-    	myfile.close();
-  	}
+
+	ifstream myfile(fileA);
+	rep(i,0,n-1){
+		rep(j,0,n-1){
+			myfile >> A[i][j];
+		}
+	}
+	myfile.close();
+
 }
 
 void get_vectorB(string fileB){
-	ifstream myfile;
-	string line;
-	myfile.open(fileB);
-	int i = 0;
-	if (myfile.is_open())
- 	{
-    	while ( getline (myfile,line) )
-    	{
-      		b[i] = stod(line);      		
-      		//cout << A[i][j] << " ";
-      		i++;
-      		
-    	}
-    	myfile.close();
-  	}
+
+  	ifstream myfile(fileB);
+	rep(i,0,n-1){
+		myfile >> b[i];
+	}
+	myfile.close();
 }
 
 void LU(){
@@ -116,8 +96,6 @@ int main(int argc, char *argv[]){
 	n = atoi(argv[3]);
 	get_matrixA(argv[1]);
 	get_vectorB(argv[2]);
-
-
 
 	high_resolution_clock::time_point t1 = high_resolution_clock::now();
 
