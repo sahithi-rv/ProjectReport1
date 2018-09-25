@@ -28,29 +28,19 @@ using namespace std::chrono;
 
 int n;
 
-double EPS = 0.0001;
-void get_vectorB(char* fileB, double **b){
-	ifstream myfile;
-	string line;
-	myfile.open(fileB);
-	int i,j = 0;
-	if (myfile.is_open())
- 	{
-    	while ( getline (myfile,line) )
-    	{
-      		b[i][j] = stod(line);      		
-      		j++;
-      		if(j==n){
-      			i++;
-      			j=0;
-      		}
-      		
-    	}
-    	myfile.close();
-  	}
+float EPS = 0.0001;
+void get_vectorB(char* fileB, float **b){
+	ifstream myfile(fileB);
+	rep(i,0,n-1){
+		rep(j,0,n-1){
+			myfile >> b[i][j];
+		}
+	}
+	myfile.close();
+
 }
 
-void matmul(double **b, double **out){
+void matmul(float **b, float **out){
 	rep(i,0,n-1){
 		rep(j,0,n-1){
 			if(i==0 && j==0){
@@ -76,9 +66,9 @@ void matmul(double **b, double **out){
 	}
 }
 
-double dot_product(double **l, double **m ){
+float dot_product(float **l, float **m ){
 
-	double out = 0.0;
+	float out = 0.0;
 	rep(i,0,n-1){
 		rep(j,0,n-1){
 			out += l[i][j]*m[i][j];
@@ -87,9 +77,9 @@ double dot_product(double **l, double **m ){
 	return out;
 }
 
-double dot_product(double **l ){
+float dot_product(float **l ){
 
-	double out = 0.0;
+	float out = 0.0;
 	rep(i,0,n-1){
 		rep(j,0,n-1){
 			out += l[i][j]*l[i][j];
@@ -105,32 +95,32 @@ int main(int argc, char *argv[]){
 	}
 	n = atoi(argv[2]);
 	cout << n << endl;
-	//double r[n][n], b[n][n], z[n][n], p[n][n], x[n][n];
-	double **r, **b, **z, **p, **x;
+	//float r[n][n], b[n][n], z[n][n], p[n][n], x[n][n];
+	float **r, **b, **z, **p, **x;
 	
-	b = (double **)malloc(sizeof(double*)*n);
+	b = (float **)malloc(sizeof(float*)*n);
 	rep(i,0,n-1){
-		b[i] = (double *)malloc((sizeof(double))*n);
+		b[i] = (float *)malloc((sizeof(float))*n);
 	}
-	r = (double **)malloc(sizeof(double*)*n);
+	r = (float **)malloc(sizeof(float*)*n);
 	rep(i,0,n-1){
-		r[i] = (double *)malloc((sizeof(double))*n);
+		r[i] = (float *)malloc((sizeof(float))*n);
 	}
-	z = (double **)malloc(sizeof(double*)*n);
+	z = (float **)malloc(sizeof(float*)*n);
 	rep(i,0,n-1){
-		z[i] = (double *)malloc((sizeof(double))*n);
+		z[i] = (float *)malloc((sizeof(float))*n);
 	}
-	p = (double **)malloc(sizeof(double*)*n);
+	p = (float **)malloc(sizeof(float*)*n);
 	rep(i,0,n-1){
-		p[i] = (double *)malloc((sizeof(double))*n);
+		p[i] = (float *)malloc((sizeof(float))*n);
 	}	
-	x = (double **)malloc(sizeof(double*)*n);
+	x = (float **)malloc(sizeof(float*)*n);
 	rep(i,0,n-1){
-		x[i] = (double *)malloc((sizeof(double))*n);
+		x[i] = (float *)malloc((sizeof(float))*n);
 	}
 	
 	get_vectorB(argv[1], b);
-	double del_new = 0,  del_old;
+	float del_new = 0,  del_old;
 	//init b,p, r,x;
 	srand((unsigned)time(0)); 
 
@@ -152,14 +142,14 @@ int main(int argc, char *argv[]){
     }
 
     del_old = del_new;
-	double double1 = del_new;
-	double double2 = del_old;
-	double double3 = sqrt(abs(double1));
-	double put;
+	float float1 = del_new;
+	float float2 = del_old;
+	float float3 = sqrt(abs(float1));
+	float put;
     //iterations
-    double vv, alpha, beta;
-    double leps = log10(EPS);
-	put = log10(double3/sqrt(double2) ) ;
+    float vv, alpha, beta;
+    float leps = log10(EPS);
+	put = log10(float3/sqrt(float2) ) ;
     while (put >= leps){
 
     	matmul(p,z);
@@ -190,9 +180,9 @@ int main(int argc, char *argv[]){
     	}
 
     	del_old = del_new;
-    	double1 = del_new;
-    	double3 = sqrt(abs(double1));
-		put = log10(double3/sqrt(double2) ) ;
+    	float1 = del_new;
+    	float3 = sqrt(abs(float1));
+		put = log10(float3/sqrt(float2) ) ;
     	cout << put << " ";
    }
     
