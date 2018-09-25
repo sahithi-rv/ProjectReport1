@@ -24,7 +24,7 @@
 
 using namespace std;
 using namespace std::chrono;
-double A[N][N],  b[N];
+float A[N][N],  b[N];
 int n; string fa, fb; 
 void get_matrixA(string fileA){
 
@@ -65,7 +65,7 @@ void LU(){
 	// solve Ly = b; - fwd substitution
 	// storing back in b
 	b[0] = b[0]/A[0][0];
-	double y = 0;
+	float y = 0;
 	rep(i,1,n-1){
 		y=0;
 		rep(j,0,i-1){
