@@ -28,50 +28,27 @@
 using namespace std;
 using namespace std::chrono;
 
-double A[N][N],  b[N];
+float A[N][N],  b[N], L[N][N], d[N];
 int n;
-void get_matrixA(char* fileA){
-	ifstream myfile;
-	string line;
-	myfile.open(fileA);
-	int i,j = 0;
-	double a;
-	if (myfile.is_open())
- 	{
-    	//while ( getline (myfile,line) )
-    	while(myfile >> a)
-    	{
-    		A[i][j] = a;
-      		//A[i][j] = stod(line);      		
-      		//cout << A[i][j] << " ";
-      		j++;
-      		if(j==n){
-      			i++;
-      			j=0;
-      		//	cout << endl;
-      		}
-      		
-    	}
-    	myfile.close();
-  	}
+void get_matrixA(string fileA){
+
+	ifstream myfile(fileA);
+	rep(i,0,n-1){
+		rep(j,0,n-1){
+			myfile >> A[i][j];
+		}
+	}
+	myfile.close();
+
 }
 
-void get_vectorB(char* fileB){
-	ifstream myfile;
-	string line;
-	myfile.open(fileB);
-	int i = 0;
-	if (myfile.is_open())
- 	{
-    	while ( getline (myfile,line) )
-    	{
-      		b[i] = stod(line);      		
-      		//cout << A[i][j] << " ";
-      		i++;
-      		
-    	}
-    	myfile.close();
-  	}
+void get_vectorB(string fileB){
+
+  	ifstream myfile(fileB);
+	rep(i,0,n-1){
+		myfile >> b[i];
+	}
+	myfile.close();
 }
 
 void LDLt(){
@@ -99,15 +76,11 @@ void LDLt(){
 			rep(i,0,j-1){
 				temp[k]+=A[k][i]*v[i];
 			}
+			A[k][j] = (A[k][j] - temp[k])/A[j][j];
 		}
-		//cout << "temp3" << endl;
-		rep(i, j+1,n-1){
-			A[i][j] = (A[i][j] - temp[i])/A[j][j];
-		}
-		//cout << "4f" << endl;
 
 	}
-double y = 0;
+float y = 0;
 	// A = LDLt 
 	// L(a) = b; Dy = a; Ltx= y
 
@@ -125,7 +98,7 @@ double y = 0;
 
 	// Dy = a;
 	rep(i,0,n-1){
-		b[i] = A[i][i]*b[i];
+		b[i] = b[i]/A[i][i];
 	}
 
 	rep(i,0,n-2){
@@ -167,8 +140,9 @@ int main(int argc, char *argv[]){
 
     cout << duration << endl;
 
-/*
+
 	rep(i,0,n-1){
 		cout << b[i] << endl;
-	}*/
+	}
+
 }
