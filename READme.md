@@ -16,10 +16,11 @@
 * b1024 - Vector B (1024x1)
 
 ### Compile (using -std=c++11)
-* make direct/direct_lu - compiles LU code
-* make direct/ldlt - compiles LDL^T code
+module load gcc/5.3.1
+* g++ -O2 -std=c++11 direct/direct_lu.cpp - compiles LU code
+* g++ -O2 -std=c++11 direct/ldlt.cpp - compiles LDL^T code
 
-* make iter/cg - compiles CG code
+* g++ -O2 -std=c++11 iter/cg.cpp - compiles CG code
 
 ### Execute
 * ./direct/direct_lu test_matrices/full_64.txt test_matrices/b64 64
@@ -31,7 +32,7 @@
 
 * ./iter/cg test_matrices/b64 8 % only B vector
 * ./iter/cg test_matrices/b256 16
-*./iter/cg test_matrices/b1024 32
+* ./iter/cg test_matrices/b1024 32
 
 ### Licence
 Please see license.txt for licensing information
